@@ -1,7 +1,7 @@
-import { Schema, model } from "mongoose"
+import mongoose from "mongoose"
 import dbUtils from "../utils/db"
 
-const pointSchema = new Schema({
+const pointSchema = new mongoose.Schema({
   type: {
     type: String,
     enum: ["Point"],
@@ -13,7 +13,7 @@ const pointSchema = new Schema({
   },
 })
 
-const sectionSchema = new Schema(
+const sectionSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -33,7 +33,7 @@ const sectionSchema = new Schema(
   },
 )
 
-const placeSchema = new Schema(
+const placeSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -65,6 +65,6 @@ const placeSchema = new Schema(
   },
 )
 
-const placeModel = model("Place", placeSchema)
+const placeModel = mongoose.model("Place", placeSchema)
 
 export default placeModel

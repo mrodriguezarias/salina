@@ -3,11 +3,7 @@ import envUtils from "../utils/env"
 import _ from "lodash"
 
 const options = {
-  useCreateIndex: true,
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  serverSelectionTimeoutMS: 3000,
+  useMongoClient: true,
   family: 4,
 }
 
@@ -21,12 +17,9 @@ const dbUtils = {
         MongoDatabase,
         MongoUser,
         MongoPassword,
-        MongoCluster,
       } = envUtils.getAll()
-      const [schema, params, port] = MongoCluster
-        ? ["mongodb+srv", "retryWrites=true&w=majority", ""]
-        : ["mongodb", "authSource=admin", `:${MongoPort}`]
-      const url = `${schema}://${MongoUser}:${MongoPassword}@${MongoHost}${port}/${MongoDatabase}?${params}`
+      const url = `mongodb://${MongoUser}:${MongoPassword}@${MongoHost}:${MongoPort}/${MongoDatabase}`
+      mongoose.Promise = global.Promise
       mongoose.connect(url, options)
       mongoose.connection.on("error", function (error) {
         console.error(error)

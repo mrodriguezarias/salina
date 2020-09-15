@@ -12,7 +12,6 @@ const env = {
   MongoUser: "MONGO_USER",
   MongoPassword: "MONGO_PASSWORD",
   MongoDatabase: "MONGO_DATABASE",
-  MongoCluster: "MONGO_CLUSTER",
   JwtSecret: "JWT_SECRET",
 }
 
@@ -76,12 +75,6 @@ const options = [
     required: false,
     type: types.String,
     default: "safewalk",
-  },
-  {
-    name: env.MongoCluster,
-    required: false,
-    type: types.Boolean,
-    default: false,
   },
   {
     name: env.JwtSecret,

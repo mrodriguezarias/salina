@@ -58,7 +58,7 @@ const placeService = {
     return place.toJSON()
   },
   deleteAllPlaces: async () => {
-    const count = await placeModel.estimatedDocumentCount()
+    const count = await placeModel.count({})
     if (count > 0) {
       await placeModel.collection.drop()
     }

@@ -1,7 +1,7 @@
-import { Schema, model } from "mongoose"
+import mongoose from "mongoose"
 import dbUtils from "../utils/db"
 
-const userSchema = new Schema(
+const userSchema = new mongoose.Schema(
   {
     name: { type: String, index: { unique: true } },
     password: String,
@@ -15,6 +15,6 @@ const userSchema = new Schema(
   },
 )
 
-const userModel = model("User", userSchema)
+const userModel = mongoose.model("User", userSchema)
 
 export default userModel
