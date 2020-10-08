@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
 import envUtils from "../utils/env"
 import _ from "lodash"
+import HttpError from "../errors/http"
 
 const options = {
   useMongoClient: true,
@@ -70,13 +71,28 @@ const dbUtils = {
     }
     return toJSON
   },
-  toDocWithLocation: ({ location, ...data }) => ({
-    ...data,
-    location: {
-      type: "Point",
-      coordinates: [location.longitude, location.latitude],
-    },
-  }),
+  toDocWithLocation: (doc) => {
+    const { location, ...restDoc } = doc
+    if (!location?.longitude || !location?.latitude) {
+      return doc
+    }
+    return {
+      ...restDoc,
+      location: {
+        type: "Point",
+        coordinates: [location.longitude, location.latitude],
+      },
+    }
+  },
+  paginate: (query, { skip = 0, limit = 0, maxLimit = 0 }) => {
+    if (skip < 0) {
+      throw new HttpError(HttpStatus.CONFLICT, "Out of range")
+    }
+    if (limit === 0 || limit > maxLimit) {
+      limit = maxLimit
+    }
+    return query.skip(skip).limit(limit)
+  },
 }
 
 export default dbUtils

@@ -42,6 +42,12 @@ const placeSchema = new mongoose.Schema(
     },
     category: {
       type: String,
+      index: "text",
+      required: true,
+    },
+    address: {
+      type: String,
+      index: "text",
       required: true,
     },
     location: {

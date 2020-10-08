@@ -4,8 +4,8 @@ import placeService from "../services/place"
 const placeController = {
   getPlaces: async (req, res, next) => {
     try {
-      const places = await placeService.getPlaces()
-      res.status(HttpStatus.OK).json(places)
+      const { data } = await placeService.getPlaces()
+      res.status(HttpStatus.OK).json(data)
     } catch (error) {
       next(error)
     }
@@ -13,8 +13,9 @@ const placeController = {
   getPlaceById: async (req, res, next) => {
     const id = req.params.id
     try {
-      const user = await placeService.getPlaceById(id)
-      res.status(HttpStatus.OK).json(user)
+      const place = await placeService.getPlaceById(id)
+      console.log("place", place)
+      res.status(HttpStatus.OK).json(place)
     } catch (error) {
       next(error)
     }
@@ -43,6 +44,15 @@ const placeController = {
     try {
       const response = await placeService.deletePlace(id)
       res.status(HttpStatus.OK).json(response)
+    } catch (error) {
+      next(error)
+    }
+  },
+  searchPlaces: async (req, res, next) => {
+    const { query, skip, limit } = req.query
+    try {
+      const places = await placeService.searchPlaces(query, { skip, limit })
+      res.status(HttpStatus.OK).json(places)
     } catch (error) {
       next(error)
     }

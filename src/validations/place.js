@@ -43,6 +43,13 @@ const placeValidation = {
       id: placeSchema.id.required(),
     }),
   },
+  searchPlaces: {
+    query: Joi.object({
+      query: Joi.string().required(),
+      skip: Joi.number().integer().min(0).default(0),
+      limit: Joi.number().integer().min(0).default(0),
+    }),
+  },
 }
 
 export default placeValidation
