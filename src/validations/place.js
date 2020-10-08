@@ -44,7 +44,7 @@ const placeValidation = {
     }),
   },
   searchPlaces: {
-    query: Joi.object({
+    body: Joi.object({
       query: Joi.string().required(),
       skip: Joi.number().integer().min(0).default(0),
       limit: Joi.number().integer().min(0).default(0),

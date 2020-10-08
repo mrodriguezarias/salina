@@ -49,7 +49,7 @@ const placeController = {
     }
   },
   searchPlaces: async (req, res, next) => {
-    const { query, skip, limit } = req.query
+    const { query, skip, limit } = req.body
     try {
       const places = await placeService.searchPlaces(query, { skip, limit })
       res.status(HttpStatus.OK).json(places)

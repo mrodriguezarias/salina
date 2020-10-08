@@ -6,7 +6,7 @@ import placeValidation from "../validations/place"
 const placeRoute = {
   path: "/places",
   configureRouter: (router) => {
-    router.get(
+    router.post(
       "/search",
       authMiddleware(),
       validate(placeValidation.searchPlaces),
