@@ -12,6 +12,12 @@ const placeRoute = {
       validate(placeValidation.searchPlaces),
       placeController.searchPlaces,
     )
+    router.post(
+      "/locate",
+      authMiddleware(),
+      validate(placeValidation.locatePlaces),
+      placeController.locatePlaces,
+    )
     // router.get("/", placeController.getPlaces)
     // router.get(
     //   "/:id",

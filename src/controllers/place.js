@@ -57,6 +57,15 @@ const placeController = {
       next(error)
     }
   },
+  locatePlaces: async (req, res, next) => {
+    const { bounds } = req.body
+    try {
+      const places = await placeService.locatePlaces(bounds)
+      res.status(HttpStatus.OK).json(places)
+    } catch (error) {
+      next(error)
+    }
+  },
 }
 
 export default placeController

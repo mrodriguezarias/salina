@@ -3,6 +3,7 @@ import placeModel from "../models/place"
 import HttpError from "../errors/http"
 import dbUtils from "../utils/db"
 import _ from "lodash"
+import geoUtils from "../utils/geo"
 
 const placeService = {
   getPlaces: async ({ filter = {}, skip, limit } = {}) => {
@@ -76,6 +77,24 @@ const placeService = {
     let data = await dbUtils.paginate(query, { skip, limit, maxLimit: 50 })
     data = _.map(data, (place) => place.toJSON())
     return data
+  },
+  locatePlaces: async (bounds) => {
+    const { northeast, southwest } = bounds
+    const distance = geoUtils.getDistance(northeast, southwest)
+    if (distance > 1000) {
+      return []
+    }
+    const places = await placeModel.find({
+      location: {
+        $geoWithin: {
+          $box: [
+            [southwest.longitude, southwest.latitude],
+            [northeast.longitude, northeast.latitude],
+          ],
+        },
+      },
+    })
+    return places
   },
 }
 

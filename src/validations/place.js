@@ -10,6 +10,11 @@ const placeSchema = {
   safe: Joi.boolean().default(false),
 }
 
+const latLngSchema = Joi.object({
+  latitude: Joi.number().required(),
+  longitude: Joi.number().required(),
+})
+
 const placeValidation = {
   getPlace: {
     params: Joi.object({
@@ -48,6 +53,14 @@ const placeValidation = {
       query: Joi.string().required(),
       skip: Joi.number().integer().min(0).default(0),
       limit: Joi.number().integer().min(0).default(0),
+    }),
+  },
+  locatePlaces: {
+    body: Joi.object({
+      bounds: Joi.object({
+        northeast: latLngSchema.required(),
+        southwest: latLngSchema.required(),
+      }).required(),
     }),
   },
 }

@@ -52,7 +52,7 @@ const placeSchema = new mongoose.Schema(
     },
     location: {
       type: pointSchema,
-      index: "2dsphere",
+      index: "2d",
       required: true,
     },
     sections: [sectionSchema],
