@@ -29,6 +29,18 @@ const placeRoute = {
       authMiddleware(),
       validate(placeValidation.deletePlace),
       placeController.deletePlace,
+    ),
+    router.put(
+      "/:id/:section/checkin",
+      authMiddleware(),
+      validate(placeValidation.checkin),
+      placeController.checkin,
+    ),
+    router.put(
+      "/:id/:section/checkout",
+      authMiddleware(),
+      validate(placeValidation.checkout),
+      placeController.checkout,
     )
   },
 }

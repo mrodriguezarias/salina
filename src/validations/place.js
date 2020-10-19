@@ -43,6 +43,18 @@ const placeValidation = {
       id: placeSchema.id.required(),
     }),
   },
+  checkin: {
+    params: Joi.object({
+      id: placeSchema.id.required(),
+      section: placeSchema.section.required(),
+    })
+  },
+  checkout: {
+    params: Joi.object({
+      id: placeSchema.id.required(),
+      section: placeSchema.section.required(),
+    })
+  },
 }
 
 export default placeValidation

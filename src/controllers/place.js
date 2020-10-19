@@ -47,6 +47,28 @@ const placeController = {
       next(error)
     }
   },
+  checkin: async (req, res, next) => {
+    const id = req.params.id
+    const section = req.params.section
+    const user = req.user
+    try {
+      const place = await placeService.checkin(id, section, user)
+      res.status(HttpStatus.OK).json(place)
+    } catch (error) {
+      next(error)
+    }
+  },
+  checkout: async (req, res, next) => {s
+    const id = req.params.id
+    const section = req.params.section
+    const user = req.user
+    try {
+      const place = await placeService.checkout(id, section, user)
+      res.status(HttpStatus.OK).json(place)
+    } catch (error) {
+      next(error)
+    }
+  },
 }
 
 export default placeController

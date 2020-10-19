@@ -63,6 +63,22 @@ const placeService = {
       await placeModel.collection.drop()
     }
   },
+  checkin: async (id, section, user) => {
+    //todo: impact checkin in bd (new collection/s) for user in place/section
+    const place = await placeModel.findById(id)
+    if (!place) {
+      throw new HttpError(HttpStatus.NOT_FOUND, "Place not found for checkin")
+    }
+    return place.toJSON()
+  },
+  checkout: async (id, section, user) => {
+    //todo: impact checkout in bd (new collection/s) for user in place/section
+    const place = await placeModel.findById(id)
+    if (!place) {
+      throw new HttpError(HttpStatus.NOT_FOUND, "Place not found for checkout")
+    }
+    return place.toJSON()
+  },
 }
 
 export default placeService
