@@ -3,12 +3,18 @@ import placeModel from "../models/place"
 import HttpError from "../errors/http"
 import dbUtils from "../utils/db"
 import _ from "lodash"
+import geoUtils from "../utils/geo"
 
 const placeService = {
-  getPlaces: async () => {
-    let places = await placeModel.find({})
-    places = _.map(places, (place) => place.toJSON())
-    return places
+  getPlaces: async ({ filter = {}, skip, limit } = {}) => {
+    const query = placeModel.find(filter)
+    const count = await placeModel.count(filter)
+    let data = await dbUtils.paginate(query, { skip, limit })
+    data = _.map(data, (place) => place.toJSON())
+    return {
+      data,
+      count,
+    }
   },
   getPlaceById: async (id) => {
     const place = await placeModel.findById(id)
@@ -51,7 +57,7 @@ const placeService = {
     return updatedPlace.toJSON()
   },
   deletePlace: async (id) => {
-    const place = await placeModel.findByIdAndDelete(id)
+    const place = await placeModel.findByIdAndRemove(id)
     if (!place) {
       throw new HttpError(HttpStatus.NOT_FOUND, "Place not found")
     }
@@ -62,6 +68,33 @@ const placeService = {
     if (count > 0) {
       await placeModel.collection.drop()
     }
+  },
+  searchPlaces: async (search, { skip = 0, limit = 0 } = {}) => {
+    search = new RegExp(`${search}`, "i")
+    const query = placeModel.find({
+      $or: [{ name: search }, { category: search }, { address: search }],
+    })
+    let data = await dbUtils.paginate(query, { skip, limit, maxLimit: 50 })
+    data = _.map(data, (place) => place.toJSON())
+    return data
+  },
+  locatePlaces: async (bounds) => {
+    const { northeast, southwest } = bounds
+    const distance = geoUtils.getDistance(northeast, southwest)
+    if (distance > 1000) {
+      return []
+    }
+    const places = await placeModel.find({
+      location: {
+        $geoWithin: {
+          $box: [
+            [southwest.longitude, southwest.latitude],
+            [northeast.longitude, northeast.latitude],
+          ],
+        },
+      },
+    })
+    return places
   },
   checkin: async (id, section, user) => {
     //todo: impact checkin in bd (new collection/s) for user in place/section

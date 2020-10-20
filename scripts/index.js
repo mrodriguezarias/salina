@@ -2,8 +2,9 @@ import yargs from "yargs"
 import envUtils from "../src/utils/env"
 import uploadPlaces from "./uploadPlaces"
 import updateOccupations from "./updateOccupations"
+import addAddresses from "./addAddresses"
 
-const scripts = [uploadPlaces, updateOccupations]
+const scripts = [uploadPlaces, updateOccupations, addAddresses]
 
 const handler = async (script, args) => {
   envUtils.load(args.env)

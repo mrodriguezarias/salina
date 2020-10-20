@@ -6,29 +6,17 @@ import placeValidation from "../validations/place"
 const placeRoute = {
   path: "/places",
   configureRouter: (router) => {
-    router.get("/", placeController.getPlaces)
-    router.get(
-      "/:id",
-      validate(placeValidation.getPlace),
-      placeController.getPlaceById,
+    router.post(
+      "/search",
+      authMiddleware(),
+      validate(placeValidation.searchPlaces),
+      placeController.searchPlaces,
     )
     router.post(
-      "/",
+      "/locate",
       authMiddleware(),
-      validate(placeValidation.createPlace),
-      placeController.createPlace,
-    )
-    router.put(
-      "/:id",
-      authMiddleware(),
-      validate(placeValidation.updatePlace),
-      placeController.updatePlace,
-    )
-    router.delete(
-      "/:id",
-      authMiddleware(),
-      validate(placeValidation.deletePlace),
-      placeController.deletePlace,
+      validate(placeValidation.locatePlaces),
+      placeController.locatePlaces,
     ),
     router.put(
       "/:id/:section/checkin",
@@ -41,7 +29,31 @@ const placeRoute = {
       authMiddleware(),
       validate(placeValidation.checkout),
       placeController.checkout,
-    )
+    ),
+    // router.get("/", placeController.getPlaces)
+    // router.get(
+    //   "/:id",
+    //   validate(placeValidation.getPlace),
+    //   placeController.getPlaceById,
+    // )
+    // router.post(
+    //   "/",
+    //   authMiddleware(),
+    //   validate(placeValidation.createPlace),
+    //   placeController.createPlace,
+    // )
+    // router.put(
+    //   "/:id",
+    //   authMiddleware(),
+    //   validate(placeValidation.updatePlace),
+    //   placeController.updatePlace,
+    // )
+    // router.delete(
+    //   "/:id",
+    //   authMiddleware(),
+    //   validate(placeValidation.deletePlace),
+    //   placeController.deletePlace,
+    // )
   },
 }
 

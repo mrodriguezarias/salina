@@ -1,11 +1,10 @@
 import path from "path"
 import { Router } from "express"
 import authRoute from "../routes/auth"
-import userRoute from "../routes/user"
 import placeRoute from "../routes/place"
 
 const routeConfig = {
-  routes: [authRoute, userRoute, placeRoute],
+  routes: [authRoute, placeRoute],
   configure: (app) => {
     const apiRouter = new Router()
     for (const { path, configureRouter } of routeConfig.routes) {

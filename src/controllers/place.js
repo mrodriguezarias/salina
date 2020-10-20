@@ -4,8 +4,8 @@ import placeService from "../services/place"
 const placeController = {
   getPlaces: async (req, res, next) => {
     try {
-      const places = await placeService.getPlaces()
-      res.status(HttpStatus.OK).json(places)
+      const { data } = await placeService.getPlaces()
+      res.status(HttpStatus.OK).json(data)
     } catch (error) {
       next(error)
     }
@@ -13,8 +13,9 @@ const placeController = {
   getPlaceById: async (req, res, next) => {
     const id = req.params.id
     try {
-      const user = await placeService.getPlaceById(id)
-      res.status(HttpStatus.OK).json(user)
+      const place = await placeService.getPlaceById(id)
+      console.log("place", place)
+      res.status(HttpStatus.OK).json(place)
     } catch (error) {
       next(error)
     }
@@ -47,6 +48,24 @@ const placeController = {
       next(error)
     }
   },
+  searchPlaces: async (req, res, next) => {
+    const { query, skip, limit } = req.body
+    try {
+      const places = await placeService.searchPlaces(query, { skip, limit })
+      res.status(HttpStatus.OK).json(places)
+    } catch (error) {
+      next(error)
+    }
+  },
+  locatePlaces: async (req, res, next) => {
+    const { bounds } = req.body
+    try {
+      const places = await placeService.locatePlaces(bounds)
+      res.status(HttpStatus.OK).json(places)
+    } catch (error) {
+      next(error)
+    }
+  },
   checkin: async (req, res, next) => {
     const id = req.params.id
     const section = req.params.section
@@ -57,7 +76,7 @@ const placeController = {
     } catch (error) {
       next(error)
     }
-  },
+  },   
   checkout: async (req, res, next) => {s
     const id = req.params.id
     const section = req.params.section
@@ -68,7 +87,7 @@ const placeController = {
     } catch (error) {
       next(error)
     }
-  },
+  },     
 }
 
 export default placeController
