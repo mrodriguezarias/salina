@@ -18,13 +18,13 @@ const placeRoute = {
       validate(placeValidation.locatePlaces),
       placeController.locatePlaces,
     ),
-    router.put(
+    router.post(
       "/:id/:section/checkin",
       authMiddleware(),
       validate(placeValidation.checkin),
       placeController.checkin,
     ),
-    router.put(
+    router.post(
       "/:id/:section/checkout",
       authMiddleware(),
       validate(placeValidation.checkout),

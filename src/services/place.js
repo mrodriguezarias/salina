@@ -97,7 +97,7 @@ const placeService = {
     return places
   },
   checkin: async (id, section, user) => {
-    //todo: impact checkin in bd (new collection/s) for user in place/section
+    //todo: impact checkin in bd (new collection/s) for user in place/section - increment occupation
     const place = await placeModel.findById(id)
     if (!place) {
       throw new HttpError(HttpStatus.NOT_FOUND, "Place not found for checkin")
@@ -105,7 +105,7 @@ const placeService = {
     return place.toJSON()
   },
   checkout: async (id, section, user) => {
-    //todo: impact checkout in bd (new collection/s) for user in place/section
+    //todo: impact checkout in bd (new collection/s) for user in place/section - decrement occupation
     const place = await placeModel.findById(id)
     if (!place) {
       throw new HttpError(HttpStatus.NOT_FOUND, "Place not found for checkout")

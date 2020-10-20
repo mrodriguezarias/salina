@@ -144,3 +144,39 @@ Si `limit` es 0 o mayor a 50, se muestran como máximo 50 resultados.
 #### Valor de retorno
 
 Retorna una lista de objetos `Place`.
+
+### Check IN
+
+Registra el checkin de un usuario en un lugar y sección determinada.
+
+#### Ruta
+
+`/places/:id/:section/checkin`
+
+#### Parámetros
+| Nombre  | Tipo   | Requerido | Descripción               |
+| ------- | ------ | --------- | ------------------------- |
+| id      | number | Sí        | Identificador del lugar   |
+| section | string | Sí        | Sección del lugar         |
+
+#### Valor de retorno
+
+Retorna un objeto `Place`.
+
+### Check IN
+
+Registra el checkout de un usuario en un lugar y sección determinada.
+
+#### Ruta
+
+`/places/:id/:section/checkout`
+
+#### Parámetros
+| Nombre  | Tipo   | Requerido | Descripción               |
+| ------- | ------ | --------- | ------------------------- |
+| id      | number | Sí        | Identificador del lugar   |
+| section | string | Sí        | Sección del lugar         |
+
+#### Valor de retorno
+
+Retorna un objeto `Place`.
