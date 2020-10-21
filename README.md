@@ -151,7 +151,7 @@ Registra el checkin de un usuario en un lugar y sección determinada.
 
 #### Ruta
 
-`/places/:id/:section/checkin`
+PUT `/places/:id/:section/checkin`
 
 #### Parámetros
 | Nombre  | Tipo   | Requerido | Descripción               |
@@ -169,7 +169,7 @@ Registra el checkout de un usuario en un lugar y sección determinada.
 
 #### Ruta
 
-`/places/:id/:section/checkout`
+PUT `/places/:id/:section/checkout`
 
 #### Parámetros
 | Nombre  | Tipo   | Requerido | Descripción               |
