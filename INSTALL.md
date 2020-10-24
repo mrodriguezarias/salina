@@ -70,6 +70,20 @@ A continuación se listan los procedimientos a seguir para instalar y configurar
 
    `mongo salina --username salina --password salina`
 
+### Importación de los lugares
+
+1. Ejecutar el programa `mongoimport` ubicado en el directorio `bin` de MongoDB:
+
+   `mongoimport --db salina --collection places --username salina --password salina --file places.json`
+
+   El archivo `places.json` puede encontrarse dentro de la carpeta `data` del proyecto Salina.
+
+2. Asegurarse de que se hayan importado bien los lugares:
+
+   `mongo salina --username salina --password salina --eval "db.places.count()"`
+
+   Debería devolver `10111`.
+
 ## Salina
 
 ### Instalación
@@ -100,17 +114,3 @@ A continuación se listan los procedimientos a seguir para instalar y configurar
    Asegurarse de que devuelva el mensaje "Connected to database".
 
    Para terminar la ejecución se puede apretar `Ctrl+C`.
-
-## Importación de los lugares
-
-1. Ejecutar el programa `mongoimport` ubicado en el directorio `bin` de MongoDB:
-
-   `mongoimport --db salina --collection places --username salina --password salina --file places.json`
-
-   El archivo `places.json` puede encontrarse dentro de la carpeta `data` del proyecto Salina.
-
-2. Asegurarse de que se hayan importado bien los lugares:
-
-   `mongo salina --username salina --password salina --eval "db.places.count()"`
-
-   Debería devolver `10111`.
