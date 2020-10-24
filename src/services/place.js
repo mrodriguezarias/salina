@@ -96,19 +96,30 @@ const placeService = {
     })
     return places
   },
-  checkin: async (id, section, user) => {
-    //todo: impact checkin in bd (new collection/s) for user in place/section - increment occupation
-    const place = await placeModel.findById(id)
+  getSections: async (placeId) => {
+    const place = await placeModel.findById(placeId)
     if (!place) {
-      throw new HttpError(HttpStatus.NOT_FOUND, "Place not found for checkin")
+      throw new HttpError(HttpStatus.NOT_FOUND, "Place not found")
+    }
+    return place.sections.toJSON()
+  },
+  checkin: async (placeId, sectionId, user) => {
+    /* todo: 
+     1- impact checkin in bd (new collection/s) for user in place/section
+     2- increment occupation */
+    const place = await placeModel.findById(placeId)
+    if (!place) {
+      throw new HttpError(HttpStatus.NOT_FOUND, "Place/Section not found for checkin")
     }
     return place.toJSON()
   },
-  checkout: async (id, section, user) => {
-    //todo: impact checkout in bd (new collection/s) for user in place/section - decrement occupation
-    const place = await placeModel.findById(id)
+  checkout: async (placeId, sectionId, user) => {
+    /* todo: 
+     1- impact checkout in bd (new collection/s) for user in place/section
+     2- decrement occupation */
+    const place = await placeModel.findById(placeId)
     if (!place) {
-      throw new HttpError(HttpStatus.NOT_FOUND, "Place not found for checkout")
+      throw new HttpError(HttpStatus.NOT_FOUND, "Place/Section not found for checkout")
     }
     return place.toJSON()
   },

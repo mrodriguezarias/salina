@@ -66,23 +66,32 @@ const placeController = {
       next(error)
     }
   },
+  getSections: async (req, res, next) => {
+    try {
+      const placeId = req.params.placeId
+      const { data } = await placeService.getSections(placeId)
+      res.status(HttpStatus.OK).json(data)
+    } catch (error) {
+      next(error)
+    }
+  },
   checkin: async (req, res, next) => {
-    const id = req.params.id
-    const section = req.params.section
+    const placeId = req.params.placeId
+    const sectionId = req.params.sectionId
     const user = req.user
     try {
-      const place = await placeService.checkin(id, section, user)
+      const place = await placeService.checkin(placeId, sectionId, user)
       res.status(HttpStatus.OK).json(place)
     } catch (error) {
       next(error)
     }
   },   
   checkout: async (req, res, next) => {s
-    const id = req.params.id
-    const section = req.params.section
+    const placeId = req.params.placeId
+    const sectionId = req.params.sectionId
     const user = req.user
     try {
-      const place = await placeService.checkout(id, section, user)
+      const place = await placeService.checkout(placeId, sectionId, user)
       res.status(HttpStatus.OK).json(place)
     } catch (error) {
       next(error)

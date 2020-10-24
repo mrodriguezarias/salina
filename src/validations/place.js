@@ -3,6 +3,7 @@ import validationUtils from "../utils/validation"
 
 const placeSchema = {
   id: Joi.string().custom(validationUtils.objectId),
+  sectionId: Joi.string().custom(validationUtils.objectId),
   name: Joi.string().min(4).max(16),
   category: Joi.string().custom(validationUtils.objectId),
   longitude: Joi.number(),
@@ -63,16 +64,21 @@ const placeValidation = {
       }).required(),
     }),
   },
+  getSections: {
+    params: Joi.object({
+      placeId: placeSchema.id.required(),
+    })
+  },
   checkin: {
     params: Joi.object({
-      id: placeSchema.id.required(),
-      section: placeSchema.section.required(),
+      placeId: placeSchema.id.required(),
+      sectionId: placeSchema.sectionId.required(),
     })
   },
   checkout: {
     params: Joi.object({
-      id: placeSchema.id.required(),
-      section: placeSchema.section.required(),
+      placeId: placeSchema.id.required(),
+      sectionId: placeSchema.sectionId.required(),
     }),
   },
 }

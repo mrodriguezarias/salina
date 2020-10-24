@@ -145,19 +145,21 @@ Si `limit` es 0 o mayor a 50, se muestran como máximo 50 resultados.
 
 Retorna una lista de objetos `Place`.
 
+## Secciones
+
 ### Check IN
 
-Registra el checkin de un usuario en un lugar y sección determinada.
+Registra el checkin de un usuario en un lugar y sección determinados, e incrementa la ocupación.
 
 #### Ruta
 
-`PUT /places/:id/:section/checkin`
+`PUT /places/:placeId/sections/:sectionId/checkin`
 
 #### Parámetros
-| Nombre  | Tipo   | Requerido | Descripción               |
-| ------- | ------ | --------- | ------------------------- |
-| id      | number | Sí        | Identificador del lugar   |
-| section | string | Sí        | Sección del lugar         |
+| Nombre    | Tipo   | Requerido | Descripción                   |
+| --------- | ------ | --------- | ----------------------------- |
+| placeId   | number | Sí        | Identificador del lugar       |
+| sectionId | number | Sí        | SeIdentificador de la sección |
 
 #### Valor de retorno
 
@@ -165,17 +167,17 @@ Retorna un objeto `Place`.
 
 ### Check IN
 
-Registra el checkout de un usuario en un lugar y sección determinada.
+Registra el checkout de un usuario en un lugar y sección determinados, y decrementa la ocupación.
 
 #### Ruta
 
-`PUT /places/:id/:section/checkout`
+`PUT /places/:placeId/sections/:sectionId/checkout`
 
 #### Parámetros
-| Nombre  | Tipo   | Requerido | Descripción               |
-| ------- | ------ | --------- | ------------------------- |
-| id      | number | Sí        | Identificador del lugar   |
-| section | string | Sí        | Sección del lugar         |
+| Nombre    | Tipo   | Requerido | Descripción                   |
+| --------- | ------ | --------- | ----------------------------- |
+| placeId   | number | Sí        | Identificador del lugar       |
+| sectionId | number | Sí        | SeIdentificador de la sección |
 
 #### Valor de retorno
 
