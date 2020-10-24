@@ -2,7 +2,7 @@
 
 Salina es una API REST JSON utilizada como backend para la app SafeOut.
 
-Su servidor principal de producción se encuentra en https://salina.nixi.icu.
+Se puede [instalar y correr localmente](https://github.com/mrodriguezarias/salina/blob/master/INSTALL.md) o bien utilizar el [servidor de producción](https://salina.nixi.icu).
 
 A continuación se documentan todos los modelos y las rutas de la API.
 
