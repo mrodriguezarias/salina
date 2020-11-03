@@ -11,7 +11,7 @@ const updateOccupations = {
     await dbUtils.connect(true)
     try {
       const places = await placeService.getPlaces()
-      console.log(util.inspect(places, false, null, true))
+      console.info(util.inspect(places, false, null, true))
     } catch (error) {
       console.error(error)
     } finally {

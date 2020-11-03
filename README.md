@@ -144,3 +144,23 @@ Si `limit` es 0 o mayor a 50, se muestran como máximo 50 resultados.
 #### Valor de retorno
 
 Retorna una lista de objetos `Place`.
+
+## Categorías
+
+### Obtención de la imagen
+
+Devuelve una imagen genérica representativa de la categoría.
+
+#### Ruta
+
+`/categories/:name/image`
+
+#### Parámetros
+
+| Nombre | Tipo   | Requerido | Descripción            |
+| ------ | ------ | --------- | ---------------------- |
+| name   | string | Sí        | Nombre de la categoría |
+
+#### Valor de retorno
+
+Archivo de imagen PNG correspondiente a la categoría pasada por parámetro.

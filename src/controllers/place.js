@@ -14,7 +14,6 @@ const placeController = {
     const id = req.params.id
     try {
       const place = await placeService.getPlaceById(id)
-      console.log("place", place)
       res.status(HttpStatus.OK).json(place)
     } catch (error) {
       next(error)
