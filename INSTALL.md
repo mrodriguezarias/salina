@@ -17,11 +17,11 @@ A continuación se listan los procedimientos a seguir para instalar y configurar
 
 ### Configuración
 
-3. Para poder ejecutar MongoDB en versiones modernas de macOS, se requiere indicarle al sistema operativo que es un binario seguro:
+1. Para poder ejecutar MongoDB en versiones modernas de macOS, se requiere indicarle al sistema operativo que es un binario seguro:
 
    `xattr -rd com.apple.quarantine [directorio donde se instaló mongo]`
 
-4. Crear un archivo `mongodb.conf` con el siguiente contenido:
+2. Crear un archivo `mongodb.conf` con el siguiente contenido:
    ```yaml
    # Directorio vacío que usará Mongo para almacenar las colecciones
    dbpath=/etc/mongodb/data/
@@ -37,7 +37,7 @@ A continuación se listan los procedimientos a seguir para instalar y configurar
    journal=true
    ```
    Asegurarse de que el directorios existan y cuenten con los suficientes permisos de lectura y escritura.
-5. Ejecutar el servidor de MongoDB (ubicado dentro del directorio `bin`)
+3. Ejecutar el servidor de MongoDB (ubicado dentro del directorio `bin`)
 
    `mongod --config [ruta al archivo mongodb.conf]`
 
@@ -47,7 +47,7 @@ A continuación se listan los procedimientos a seguir para instalar y configurar
    - Ejecutar `mongo --eval "db.getSiblingDB('admin').shutdownServer()"`
    - Buscar el proceso `mongod` en el administrador de procesos del sistema y terminarlo desde ahí
 
-6. Ejecutar el cliente de MongoDB (ubicado dentro del directorio `bin`)
+4. Ejecutar el cliente de MongoDB (ubicado dentro del directorio `bin`)
 
    `mongo`
 
@@ -55,7 +55,7 @@ A continuación se listan los procedimientos a seguir para instalar y configurar
 
    Para terminar la ejecución apretar `Ctrl+C`.
 
-7. Crear la base de datos y un usuario para accederla.
+5. Crear la base de datos y un usuario para accederla.
 
    Escribir lo siguiente en el cliente de MongoDB:
 
@@ -66,23 +66,23 @@ A continuación se listan los procedimientos a seguir para instalar y configurar
 
 ### Ejecución
 
-8. Verificar la conexión a la base de datos con el usuario recién creado:
+1. Verificar la conexión a la base de datos con el usuario recién creado:
 
    `mongo salina --username salina --password salina`
 
-### Importación de los lugares
+### Importación de los datos
 
-9. Ejecutar el programa `mongoimport` ubicado en el directorio `bin` de MongoDB:
+1. Ejecutar el programa `mongoimport` ubicado en el directorio `bin` de MongoDB:
 
-   `mongoimport --db salina --collection places --username salina --password salina --file places.json`
+   `mongorestore --db salina --username salina --password salina --drop data`
 
-   El archivo `places.json` puede encontrarse dentro de la carpeta `data` del proyecto Salina.
+   `data` debería apuntar a la carpeta `data` ubicada en la raíz del proyecto Salina.
 
-10. Asegurarse de que se hayan importado bien los lugares:
+2. Asegurarse de que se hayan importado bien los lugares:
 
-`mongo salina --username salina --password salina --eval "db.places.count()"`
+   `mongo salina --username salina --password salina --eval "db.places.count()"`
 
-Debería devolver `10111`.
+   Debería devolver `10111`.
 
 ## Salina
 
@@ -99,18 +99,26 @@ Debería devolver `10111`.
 
 ### Configuración
 
-4. Crear un archivo para la configuración local:
+1. Crear un archivo para la configuración local:
 
    `cp env/local.env.example env/local.env`
 
-5. Asegurarse de que los valores en `local.env` coincidan con los que se usaron al configurar MongoDB
+2. Asegurarse de que los valores en `local.env` coincidan con los que se usaron al configurar MongoDB
 
 ### Ejecución
 
-6. Desde la raíz del proyecto ejecutar:
+1. Desde la raíz del proyecto ejecutar:
 
    `npm start`
 
-   Asegurarse de que devuelva el mensaje "Connected to database".
+2. Asegurarse de que devuelva el mensaje "Connected to database".
 
    Para terminar la ejecución se puede apretar `Ctrl+C`.
+
+### Creación del usuario admin
+
+1. Desde la raíz del proyecto ejecutar:
+
+   `npm run script create_admin_user`
+
+2. Asegurarse de que devuelva el mensaje "Created admin user".

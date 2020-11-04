@@ -3,8 +3,16 @@ import envUtils from "../src/utils/env"
 import uploadPlaces from "./uploadPlaces"
 import updateOccupations from "./updateOccupations"
 import addAddresses from "./addAddresses"
+import createAdminUser from "./createAdminUser"
+import addReservations from "./addReservations"
 
-const scripts = [uploadPlaces, updateOccupations, addAddresses]
+const scripts = [
+  uploadPlaces,
+  updateOccupations,
+  addAddresses,
+  createAdminUser,
+  addReservations,
+]
 
 const handler = async (script, args) => {
   envUtils.load(args.env)

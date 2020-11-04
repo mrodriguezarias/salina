@@ -88,7 +88,7 @@ const dbUtils = {
     if (skip < 0) {
       throw new HttpError(HttpStatus.CONFLICT, "Out of range")
     }
-    if (limit === 0 || limit > maxLimit) {
+    if (limit === 0 || (limit > maxLimit && maxLimit !== 0)) {
       limit = maxLimit
     }
     return query.skip(skip).limit(limit)

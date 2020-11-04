@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import sectionService from "../services/section"
 import dbUtils from "../utils/db"
 
 const pointSchema = new mongoose.Schema({
@@ -12,26 +13,6 @@ const pointSchema = new mongoose.Schema({
     required: true,
   },
 })
-
-const sectionSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    capacity: {
-      type: Number,
-      required: true,
-    },
-    occupation: {
-      type: Number,
-      default: 0,
-    },
-  },
-  {
-    toJSON: dbUtils.toJSON({ hideId: true }),
-  },
-)
 
 const placeSchema = new mongoose.Schema(
   {
@@ -55,7 +36,6 @@ const placeSchema = new mongoose.Schema(
       index: "2d",
       required: true,
     },
-    sections: [sectionSchema],
   },
   {
     toJSON: dbUtils.toJSON({

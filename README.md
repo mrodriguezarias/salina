@@ -16,11 +16,14 @@ Las rutas privadas requieren el header `Authorization` con el token de la sesió
 
 ### User
 
-| Atributo | Tipo   | Descripción                        |
-| -------- | ------ | ---------------------------------- |
-| id       | string | ID del usuario                     |
-| name     | string | Nombre de usuario (debe ser único) |
-| password | string | Contraseña cifrada                 |
+| Atributo | Tipo    | Descripción                        |
+| -------- | ------- | ---------------------------------- |
+| id       | string  | ID del usuario                     |
+| name     | string  | Nombre de usuario (debe ser único) |
+| password | string  | Contraseña cifrada                 |
+| admin    | boolean | Indica si es admin                 |
+
+Los usuarios admin son los únicos que tienen acceso a la pantalla de bienvenida de los Lugares (la que se le muestra al usuario en la puerta para que pueda hacer check in o check out).
 
 ### Location
 
@@ -29,24 +32,28 @@ Las rutas privadas requieren el header `Authorization` con el token de la sesió
 | longitude | number | Longitud    |
 | latitude  | number | Latitud     |
 
-### Section
-
-| Atributo   | Tipo   | Descripción                                |
-| ---------- | ------ | ------------------------------------------ |
-| name       | string | Nombre de la sección                       |
-| capacity   | number | Capacidad máxima permitida para la sección |
-| occupation | number | Nivel de ocupación actual de la sección    |
-
 ### Place
 
-| Atributo | Tipo      | Descripción                           |
-| -------- | --------- | ------------------------------------- |
-| id       | string    | ID del lugar                          |
-| name     | string    | Nombre del lugar                      |
-| category | string    | Categoría (i.e. qué tipo de lugar es) |
-| address  | string    | Dirección del lugar (calle y altura)  |
-| location | Location  | Ubicación geográfica del lugar        |
-| sections | [Section] | Secciones del lugar                   |
+| Atributo   | Tipo     | Descripción                                        |
+| ---------- | -------- | -------------------------------------------------- |
+| id         | string   | ID del lugar                                       |
+| name       | string   | Nombre del lugar                                   |
+| category   | string   | Categoría (i.e. qué tipo de lugar es)              |
+| address    | string   | Dirección del lugar (calle y altura)               |
+| location   | Location | Ubicación geográfica del lugar                     |
+| capacity   | number   | Suma de las capacidades de las secciones del lugar |
+| occupation | number   | Suma de las ocupaciones de las secciones del lugar |
+
+### Section
+
+| Atributo     | Tipo    | Descripción                                |
+| ------------ | ------- | ------------------------------------------ |
+| id           | string  | ID de la sección                           |
+| place        | Place   | ID del lugar al que pertenece la sección   |
+| name         | string  | Nombre de la sección                       |
+| capacity     | number  | Capacidad máxima permitida para la sección |
+| occupation   | number  | Nivel de ocupación actual de la sección    |
+| reservations | boolean | Indica si la sección trabaja con reservas  |
 
 ## Autenticación
 
@@ -154,6 +161,10 @@ Devuelve una imagen genérica representativa de la categoría.
 #### Ruta
 
 `/categories/:name/image`
+
+#### Método
+
+`GET`
 
 #### Parámetros
 

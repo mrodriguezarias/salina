@@ -4,13 +4,41 @@ import HttpError from "../errors/http"
 import dbUtils from "../utils/db"
 import _ from "lodash"
 import geoUtils from "../utils/geo"
+import sectionService from "../services/section"
+
+const transformPlace = async (place) => {
+  const capacity = await sectionService.sumAttributeForPlace(
+    place.id,
+    "capacity",
+  )
+  const occupation = await sectionService.sumAttributeForPlace(
+    place.id,
+    "occupation",
+  )
+  place = place.toJSON()
+  place = {
+    ...place,
+    capacity,
+    occupation,
+  }
+  return place
+}
+
+const transformPlaces = async (places) => {
+  let transformed = []
+  for (let place of places) {
+    place = await transformPlace(place)
+    transformed = [...transformed, place]
+  }
+  return transformed
+}
 
 const placeService = {
   getPlaces: async ({ filter = {}, skip, limit } = {}) => {
     const query = placeModel.find(filter)
     const count = await placeModel.count(filter)
     let data = await dbUtils.paginate(query, { skip, limit })
-    data = _.map(data, (place) => place.toJSON())
+    data = await transformPlaces(data)
     return {
       data,
       count,
@@ -21,7 +49,7 @@ const placeService = {
     if (!place) {
       throw new HttpError(HttpStatus.NOT_FOUND, "Place not found")
     }
-    return place.toJSON()
+    return transformPlace(place)
   },
   createPlace: async (data) => {
     if (_.isEmpty(data)) {
@@ -31,7 +59,7 @@ const placeService = {
     const place = await placeModel.create({
       ...data,
     })
-    return place.toJSON()
+    return transformPlace(place)
   },
   updatePlace: async (id, data) => {
     if (_.isEmpty(data)) {
@@ -52,16 +80,16 @@ const placeService = {
       { new: true },
     )
     if (!updatedPlace) {
-      throw new HttpError(HttpStatus.NOT_FOUND, "Node not found")
+      throw new HttpError(HttpStatus.NOT_FOUND, "Place not found")
     }
-    return updatedPlace.toJSON()
+    return transformPlace(updatedPlace)
   },
   deletePlace: async (id) => {
     const place = await placeModel.findByIdAndRemove(id)
     if (!place) {
       throw new HttpError(HttpStatus.NOT_FOUND, "Place not found")
     }
-    return place.toJSON()
+    return transformPlace(place)
   },
   deleteAllPlaces: async () => {
     const count = await placeModel.count({})
@@ -75,7 +103,7 @@ const placeService = {
       $or: [{ name: search }, { category: search }, { address: search }],
     })
     let data = await dbUtils.paginate(query, { skip, limit, maxLimit: 50 })
-    data = _.map(data, (place) => place.toJSON())
+    data = await transformPlaces(data)
     return data
   },
   locatePlaces: async (bounds) => {
@@ -84,7 +112,7 @@ const placeService = {
     if (distance > 1000) {
       return []
     }
-    const places = await placeModel.find({
+    let places = await placeModel.find({
       location: {
         $geoWithin: {
           $box: [
@@ -94,6 +122,7 @@ const placeService = {
         },
       },
     })
+    places = await transformPlaces(places)
     return places
   },
 }
