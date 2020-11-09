@@ -96,7 +96,7 @@ const categories = [
 ]
 
 const uploadPlaces = {
-  name: "upload-places",
+  name: "upload_places",
   run: async (args) => {
     const path = uploadPlaces.parseArgs(args)
     const places = uploadPlaces.parseFile(path)

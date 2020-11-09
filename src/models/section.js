@@ -22,12 +22,16 @@ const sectionSchema = new mongoose.Schema(
       default: 0,
     },
     reservations: {
-      type: Boolean,
-      default: false,
+      type: [[Number]],
+      default: null,
     },
   },
   {
-    toJSON: dbUtils.toJSON(),
+    toJSON: dbUtils.toJSON({
+      next: (section) => {
+        section.reservations = section.reservations !== null
+      },
+    }),
   },
 )
 

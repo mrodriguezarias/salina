@@ -4,9 +4,18 @@ import authRoute from "../routes/auth"
 import placeRoute from "../routes/place"
 import categoryRoute from "../routes/category"
 import sectionRoute from "../routes/section"
+import reservationRoute from "../routes/reservation"
+import checkinRoute from "../routes/checkins"
 
 const routeConfig = {
-  routes: [authRoute, placeRoute, categoryRoute, sectionRoute],
+  routes: [
+    authRoute,
+    placeRoute,
+    categoryRoute,
+    sectionRoute,
+    reservationRoute,
+    checkinRoute,
+  ],
   configure: (app) => {
     const apiRouter = new Router()
     for (const { path, configureRouter } of routeConfig.routes) {

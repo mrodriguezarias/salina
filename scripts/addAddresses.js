@@ -10,7 +10,7 @@ const COORDS2ADDR_API =
   "http://ws.usig.buenosaires.gob.ar/geocoder/2.2/reversegeocoding"
 
 const addAddresses = {
-  name: "add-addresses",
+  name: "add_addresses",
   run: async () => {
     await dbUtils.connect(true)
     try {

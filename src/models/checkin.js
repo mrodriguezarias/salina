@@ -1,9 +1,8 @@
 import mongoose from "mongoose"
 import dbUtils from "../utils/db"
 
-const reservationSchema = new mongoose.Schema(
+const checkinSchema = new mongoose.Schema(
   {
-    date: { type: Date, required: true },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -22,6 +21,6 @@ const reservationSchema = new mongoose.Schema(
   },
 )
 
-const reservationModel = mongoose.model("Reservation", reservationSchema)
+const checkinModel = mongoose.model("Checkin", checkinSchema)
 
-export default reservationModel
+export default checkinModel

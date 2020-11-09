@@ -1,14 +1,14 @@
 import yargs from "yargs"
 import envUtils from "../src/utils/env"
 import uploadPlaces from "./uploadPlaces"
-import updateOccupations from "./updateOccupations"
+import refreshOccupations from "./refreshOccupations"
 import addAddresses from "./addAddresses"
 import createAdminUser from "./createAdminUser"
 import addReservations from "./addReservations"
 
 const scripts = [
   uploadPlaces,
-  updateOccupations,
+  refreshOccupations,
   addAddresses,
   createAdminUser,
   addReservations,

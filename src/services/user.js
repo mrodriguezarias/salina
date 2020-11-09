@@ -19,6 +19,11 @@ const userService = {
     user = _.omit(user.toJSON(), "password")
     return user
   },
+  getAdminUser: async () => {
+    let user = await userModel.findOne({ name: "admin" })
+    user = _.omit(user.toJSON(), "password")
+    return user
+  },
   createUser: async (userData) => {
     if (_.isEmpty(userData) || !userData.name) {
       throw new HttpError(HttpStatus.BAD_REQUEST, "User not provided")

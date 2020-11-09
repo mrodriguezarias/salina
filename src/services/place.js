@@ -5,16 +5,12 @@ import dbUtils from "../utils/db"
 import _ from "lodash"
 import geoUtils from "../utils/geo"
 import sectionService from "../services/section"
+import sectionModel from "../models/section"
+import mongoose from "mongoose"
 
 const transformPlace = async (place) => {
-  const capacity = await sectionService.sumAttributeForPlace(
-    place.id,
-    "capacity",
-  )
-  const occupation = await sectionService.sumAttributeForPlace(
-    place.id,
-    "occupation",
-  )
+  const capacity = await placeService.getCapacity(place.id)
+  const occupation = await placeService.getOccupation(place.id)
   place = place.toJSON()
   place = {
     ...place,
@@ -45,11 +41,12 @@ const placeService = {
     }
   },
   getPlaceById: async (id) => {
-    const place = await placeModel.findById(id)
+    let place = await placeModel.findById(id)
     if (!place) {
       throw new HttpError(HttpStatus.NOT_FOUND, "Place not found")
     }
-    return transformPlace(place)
+    place = await transformPlace(place)
+    return place
   },
   createPlace: async (data) => {
     if (_.isEmpty(data)) {
@@ -124,6 +121,22 @@ const placeService = {
     })
     places = await transformPlaces(places)
     return places
+  },
+  getCapacity: async (placeId) => {
+    const [{ total }] = await sectionModel.aggregate([
+      { $match: { place: mongoose.Types.ObjectId(placeId) } },
+      {
+        $group: {
+          _id: null,
+          total: { $sum: `$capacity` },
+        },
+      },
+    ])
+    return total
+  },
+  getOccupation: async (placeId) => {
+    const sections = await sectionService.getSectionsForPlace(placeId)
+    return _.sum(sections.map(({ occupation }) => occupation))
   },
 }
 

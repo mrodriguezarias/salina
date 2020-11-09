@@ -11,11 +11,6 @@ const addReservations = {
   run: async () => {
     await dbUtils.connect(true)
     try {
-      const sections = await sectionService.sumAttributeForPlace(
-        "5f600c75db23bc5159a7ed60",
-        "capacity",
-      )
-      console.log("sections", sections)
       // await addReservations.processPlaces()
     } catch (error) {
       console.error(error)
