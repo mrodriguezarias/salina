@@ -44,6 +44,8 @@ Los usuarios admin son los únicos que tienen acceso a la pantalla de bienvenida
 | capacity   | number   | Suma de las capacidades de las secciones del lugar |
 | occupation | number   | Suma de las ocupaciones de las secciones del lugar |
 
+Los lugares son todos dentro de la Ciudad Autónoma de Buenos Aires.
+
 ### Section
 
 | Atributo     | Tipo    | Descripción                                |
@@ -267,6 +269,8 @@ Objeto Checkin correspondiente o `null` si el usuario no estaba en ninguna secci
 ### Creación
 
 Crea una nueva reserva para el usuario con la sesión iniciada.
+
+Las reservas pueden hacerse con dos semanas de anticipación como máximo.
 
 #### Ruta
 
