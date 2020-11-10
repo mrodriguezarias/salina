@@ -8,7 +8,7 @@ A continuación se documentan todos los modelos y las rutas de la API.
 
 Todas las rutas aceptan únicamente el método POST.
 
-Todos las rutas son privadas excepto las de autenticación.
+Todas las rutas son privadas excepto las de autenticación.
 
 Las rutas privadas requieren el header `Authorization` con el token de la sesión.
 
@@ -178,7 +178,7 @@ Retorna una lista de objetos `Place`.
 
 ### Secciones de un lugar
 
-Devuelve todos las secciones de un lugar
+Devuelve todas las secciones de un lugar.
 
 ### Ruta
 
@@ -238,7 +238,7 @@ Crea un nuevo checkin para el usuario con la sesión iniciada.
 
 #### Valor de retorno
 
-Objeto Checkin creado.
+Objeto `Checkin` creado.
 
 ### Consulta
 
@@ -250,7 +250,7 @@ Muestra el checkin del usuario con la sesión iniciada.
 
 #### Valor de retorno
 
-Objeto Checkin correspondiente o `null` si el usuario no estaba en ninguna sección.
+Objeto `Checkin` correspondiente o `null` si el usuario no estaba en ninguna sección.
 
 ### Eliminación
 
@@ -262,7 +262,7 @@ Elimina el checkin del usuario con la sesión iniciada.
 
 #### Valor de retorno
 
-Objeto Checkin correspondiente o `null` si el usuario no estaba en ninguna sección.
+Objeto `Checkin` correspondiente o `null` si el usuario no estaba en ninguna sección.
 
 ## Reservas
 
@@ -285,7 +285,7 @@ Las reservas pueden hacerse con dos semanas de anticipación como máximo.
 
 #### Valor de retorno
 
-Objeto Reservation creado.
+Objeto `Reservation` creado.
 
 ### Consulta
 
@@ -303,7 +303,7 @@ Muestra las reservas que posee el usuario con la sesión iniciada.
 
 #### Valor de retorno
 
-Lista de objetos Reservation.
+Lista de objetos `Reservation`.
 
 ### Eliminación
 
@@ -321,7 +321,7 @@ Elimina una reserva del usuario con la sesión iniciada.
 
 #### Valor de retorno
 
-Objeto Reservation eliminado.
+Objeto `Reservation` eliminado.
 
 ### Consulta de días
 
