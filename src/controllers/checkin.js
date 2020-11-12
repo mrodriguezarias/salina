@@ -35,8 +35,9 @@ const checkinController = {
   },
   removeCheckin: async (req, res, next) => {
     const userId = requestUtils.getLoggedUserId(req)
+    const sectionId = req.body.section
     try {
-      const reservation = await checkinService.deleteCheckin(userId)
+      const reservation = await checkinService.deleteCheckin(userId, sectionId)
       res.status(HttpStatus.OK).json(reservation)
     } catch (error) {
       next(error)

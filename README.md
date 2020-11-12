@@ -260,9 +260,15 @@ Elimina el checkin del usuario con la sesión iniciada.
 
 `/checkins/remove`
 
+#### Parámetros
+
+| Nombre  | Tipo   | Requerido | Descripción              |
+| ------- | ------ | --------- | ------------------------ |
+| section | string | Sí        | ID de la sección a salir |
+
 #### Valor de retorno
 
-Objeto `Checkin` correspondiente o `null` si el usuario no estaba en ninguna sección.
+Objeto `Checkin` correspondiente.
 
 ## Reservas
 

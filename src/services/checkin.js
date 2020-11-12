@@ -56,11 +56,15 @@ const checkinService = {
     })
     return checkin?.toJSON() ?? null
   },
-  deleteCheckin: async (userId) => {
+  deleteCheckin: async (userId, sectionId) => {
     const checkin = await checkinService.getCheckin({ user: userId })
-    if (checkin) {
-      await checkinModel.remove({ _id: checkin.id })
+    if (!checkin || checkin.section !== sectionId) {
+      throw new HttpError(
+        HttpStatus.BAD_REQUEST,
+        "El usuario no se encuentra en esta sección",
+      )
     }
+    await checkinModel.remove({ _id: checkin.id })
     return checkin
   },
   getOccupation: async (sectionId) => {

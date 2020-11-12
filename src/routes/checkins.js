@@ -13,7 +13,12 @@ const checkinRoute = {
       validate(checkinValidation.addCheckin),
       checkinController.addCheckin,
     )
-    router.post("/remove", authMiddleware(), checkinController.removeCheckin)
+    router.post(
+      "/remove",
+      authMiddleware(),
+      validate(checkinValidation.removeCheckin),
+      checkinController.removeCheckin,
+    )
     router.post(
       "/:id",
       authMiddleware({ loggedId: "checkin.user" }),

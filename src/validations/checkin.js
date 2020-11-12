@@ -13,6 +13,11 @@ const checkinValidation = {
       section: checkinSchema.section.required(),
     }),
   },
+  removeCheckin: {
+    body: Joi.object({
+      section: checkinSchema.section.required(),
+    }),
+  },
   getCheckin: {
     params: Joi.object({
       id: checkinSchema.id.required(),
