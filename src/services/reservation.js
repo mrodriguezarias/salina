@@ -61,6 +61,17 @@ const reservationService = {
       date: { $gte: new Date() },
     })
     reservations = _.map(reservations, (item) => item.toJSON())
+    reservations = await sectionService.getPopulatedSections(reservations)
+    return reservations
+  },
+  getReservationsForUserAndSection: async (userId, sectionId, one = false) => {
+    let reservations = await reservationService.getReservations({
+      user: userId,
+      ...(sectionId && { section: sectionId }),
+    })
+    if (one) {
+      reservations = reservations.length > 0 ? reservations[0] : null
+    }
     return reservations
   },
   deleteReservation: async (id) => {

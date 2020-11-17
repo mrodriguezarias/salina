@@ -7,10 +7,11 @@ const reservationController = {
     const userId = requestUtils.getLoggedUserId(req)
     const sectionId = req.body.section
     try {
-      const response = await reservationService.getReservations({
-        user: userId,
-        ...(sectionId && { section: sectionId }),
-      })
+      const response = await reservationService.getReservationsForUserAndSection(
+        userId,
+        sectionId,
+        !!sectionId,
+      )
       res.status(HttpStatus.OK).json(response)
     } catch (error) {
       next(error)

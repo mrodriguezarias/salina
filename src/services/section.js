@@ -7,6 +7,9 @@ import checkinService from "./checkin"
 import moment from "moment"
 
 const transformSection = async (section) => {
+  if (!section) {
+    return section
+  }
   const occupation = await sectionService.getOccupation(section)
   section = section.toJSON()
   section = {
@@ -131,6 +134,19 @@ const sectionService = {
         reservations: null,
       },
     )
+  },
+  getPopulatedSection: async (id) => {
+    let section = await sectionModel.findById(id).populate("place")
+    section = await transformSection(section)
+    return section
+  },
+  getPopulatedSections: async (list) => {
+    let populated = []
+    for (const item of list) {
+      const section = await sectionService.getPopulatedSection(item.section)
+      populated = [...populated, { ...item, section }]
+    }
+    return populated
   },
 }
 
