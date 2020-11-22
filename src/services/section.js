@@ -126,6 +126,17 @@ const sectionService = {
     }
     return reservations
   },
+  getCapacities: async (sectionId, perDay = false) => {
+    const section = await sectionModel.findById(sectionId)
+    const capacity = section.capacity
+    if (perDay) {
+      const currentHour = moment().hour()
+      return Array(15)
+        .fill(capacity)
+        .map((cap, index) => (index > 0 ? cap * 24 : cap * (24 - currentHour)))
+    }
+    return Array(24).fill(capacity)
+  },
   clearOccupations: async () => {
     await sectionModel.updateMany(
       {},

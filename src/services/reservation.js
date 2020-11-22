@@ -108,6 +108,7 @@ const reservationService = {
       },
     })
     const reservations = await sectionService.getReservations(sectionId, true)
+    const capacities = await sectionService.getCapacities(sectionId, true)
     return dates.map((date, index) => {
       const realOccupation =
         occupations.find(({ _id }) => moment(_id).isSame(date, "day"))?.value ??
@@ -116,6 +117,7 @@ const reservationService = {
       return {
         date,
         occupation: realOccupation + mockOccupation,
+        capacity: capacities[index],
       }
     })
   },
@@ -178,14 +180,17 @@ const reservationService = {
     const reservations = (await sectionService.getReservations(sectionId))[
       diffFromToday
     ]
+    const capacities = await sectionService.getCapacities(sectionId)
     return times.map((time, index) => {
       const realOccupation =
         occupations.find(({ _id }) => moment(_id).isSame(time, "hour"))
           ?.value ?? 0
-      const mockOccupation = reservations?.[24 - times.length + index] ?? 0
+      const idx = 24 - times.length + index
+      const mockOccupation = reservations?.[idx] ?? 0
       return {
         time,
         occupation: realOccupation + mockOccupation,
+        capacity: capacities[idx],
       }
     })
   },
