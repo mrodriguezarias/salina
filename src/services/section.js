@@ -5,6 +5,7 @@ import dbUtils from "../utils/db"
 import _ from "lodash"
 import checkinService from "./checkin"
 import moment from "moment"
+import placeService from "./place"
 
 const transformSection = async (section) => {
   if (!section) {
@@ -147,8 +148,13 @@ const sectionService = {
     )
   },
   getPopulatedSection: async (id) => {
-    let section = await sectionModel.findById(id).populate("place")
+    let section = await sectionModel.findById(id)
+    const place = await placeService.getPlaceById(section.place)
     section = await transformSection(section)
+    section = {
+      ...section,
+      place,
+    }
     return section
   },
   getPopulatedSections: async (list) => {
