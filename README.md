@@ -150,7 +150,7 @@ Recibe un objeto `bounds` con los siguientes atributos:
 
 Retorna una lista de objetos `Place`.
 
-Si la distancia entre `northeast` y `southwest` es mayor a un kilómetro, retorna una lista vacía.
+Si la distancia entre `northeast` y `southwest` es mayor a dos kilómetros, retorna una lista vacía.
 
 ### Búsqueda
 

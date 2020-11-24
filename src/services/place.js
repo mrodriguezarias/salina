@@ -106,7 +106,7 @@ const placeService = {
   locatePlaces: async (bounds) => {
     const { northeast, southwest } = bounds
     const distance = geoUtils.getDistance(northeast, southwest)
-    if (distance > 1000) {
+    if (distance > 2000) {
       return []
     }
     let places = await placeModel.find({
