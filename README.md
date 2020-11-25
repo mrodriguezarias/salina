@@ -148,9 +148,9 @@ Recibe un objeto `bounds` con los siguientes atributos:
 
 #### Valor de retorno
 
-Retorna una lista de objetos `Place`.
+Retorna una lista de objetos `Place` (máximo 50).
 
-Si la distancia entre `northeast` y `southwest` es mayor a dos kilómetros, retorna una lista vacía.
+Si la distancia entre `northeast` y `southwest` es mayor a tres kilómetros, retorna una lista vacía.
 
 ### Búsqueda
 
