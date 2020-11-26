@@ -56,10 +56,12 @@ const reservationService = {
     return reservation.toJSON()
   },
   getReservations: async (filters = {}) => {
+    const date = new Date()
+    date.setHours(date.getHours() - 1)
     let reservations = await reservationModel
       .find({
         ...filters,
-        date: { $gte: new Date() },
+        date: { $gte: date },
       })
       .sort({ date: 1 })
     reservations = _.map(reservations, (item) => item.toJSON())
